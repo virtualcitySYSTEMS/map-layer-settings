@@ -1,6 +1,6 @@
 {
   "name": "@vcmap/layer-settings",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Edit settings of VCMap layers at runtime",
   "type": "module",
   "main": "dist/index.js",
