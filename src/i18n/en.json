@@ -1,0 +1,41 @@
+{
+  "layerSettings": {
+    "settings": "Settings",
+    "generalSettings": "General settings",
+    "advancedSettings": "Advanced settings",
+    "reset": "Reset",
+    "raster": {
+      "opacity": "Opacity"
+    },
+    "pointcloud": {
+      "pointSize": "Point size",
+      "screenSpaceError": "Max. Screenspace Error",
+      "enableAttenuation": "Enable attenuation",
+      "geometricErrorScale": "Geometric Error Scale",
+      "useMaxAttenuation": "Use maximum attenuation",
+      "maximumAttenuation": "Maximum attenuation",
+      "baseResolution": "Base resolution",
+      "enableEyeDomeLighting": "Enable Eye Dome Lighting",
+      "eyeDomeLightingStrength": "Strength",
+      "eyeDomeLightingRadius": "Radius",
+      "noVisualization": "No visualization options available.",
+      "hints": {
+        "advancedSettings1": "Advanced options for performing point attenuation based on geometric error when rendering point clouds. See the",
+        "advancedSettings2": "Cesium documentation",
+        "pointSizeDisabled": "Point size is incompatible with Attenuation, and is therefore disabled",
+        "screenSpaceError": "Drives level of detail refinement, helping determine when  a tile refines to its descendants",
+        "geometricErrorScale": "Scale to be applied to the geometric error before computing attenuation",
+        "maximumAttenuation": "Maximum point attenuation in pixels. If undefined, the maximumScreenSpaceError will be used.",
+        "baseResolution": "Average base resolution in meters, used in place of geometric error when geometric error is 0",
+        "eyeDomeLightingStrength": "Apparent contrast of the Eye dome lighting",
+        "eyeDomeLightingRadius": "Thickness of contours of the Eye dome lighting"
+      }
+    },
+    "config": {
+      "enableFor": "Enable layer settings for:",
+      "enableForHelp": "Select the layer types for which the layer settings should be available.",
+      "rasterLayers": "Raster layers",
+      "pointcloudLayers": "Pointcloud layers"
+    }
+  }
+}

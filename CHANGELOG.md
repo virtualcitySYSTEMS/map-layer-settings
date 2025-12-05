@@ -1,3 +1,6 @@
 # v1.0.0
 
-Document features and fixes
+Layer Settings plugin
+
+- Pointcloud layer: add support for `pointSize`, `screenSpaceError` and `shading` settings
+- Raster layer: add support for `opacity` setting

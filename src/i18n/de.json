@@ -1,0 +1,41 @@
+{
+  "layerSettings": {
+    "settings": "Einstellungen",
+    "generalSettings": "Allgemeine Einstellungen",
+    "advancedSettings": "Erweiterte Einstellungen",
+    "reset": "Zurücksetzen",
+    "raster": {
+      "opacity": "Opazität"
+    },
+    "pointcloud": {
+      "pointSize": "Punktgröße",
+      "screenSpaceError": "Max. Screenspace Error",
+      "enableAttenuation": "Abschwächung ermöglichen",
+      "geometricErrorScale": "Geometrische Fehlerskala",
+      "useMaxAttenuation": "Maximale Abschwächung verwenden",
+      "maximumAttenuation": "Maximale Abschwächung",
+      "baseResolution": "Basisauflösung",
+      "enableEyeDomeLighting": "Eye-Dome-Lighting ermöglichen",
+      "eyeDomeLightingStrength": "Stärke",
+      "eyeDomeLightingRadius": "Radius",
+      "noVisualization": "Keine Visualisierungsoptionen verfügbar.",
+      "hints": {
+        "advancedSettings1": "Erweiterte Optionen für die Durchführung der Punktabschwächung auf der Grundlage geometrischer Fehler beim Rendern von Punktwolken. Siehe die",
+        "advancedSettings2": "Cesium Dokumentation",
+        "pointSizeDisabled": "Punktgröße ist mit Abschwächung nicht kompatibel und wird daher deaktiviert",
+        "screenSpaceError": "Steuert die Verfeinerungsebene und bestimmt, wann eine Kachel zu ihren Nachkommen verfeinert wird",
+        "geometricErrorScale": "Skala, die auf den geometrischen Fehler anzuwenden ist, bevor die Abschwächung berechnet wird",
+        "maximumAttenuation": "Maximale Punktabschwächung in Pixeln. Ist dieser Wert nicht definiert, wird der Wert maximumScreenSpaceError verwendet",
+        "baseResolution": "Durchschnittliche Basisauflösung in Metern, wird anstelle des geometrischen Fehlers verwendet, wenn der geometrische Fehler 0 ist",
+        "eyeDomeLightingStrength": "Scheinbarer Kontrast der Eye-Dome-Lighting",
+        "eyeDomeLightingRadius": "Dicke der Konturen der Eye-Dome-Lighting"
+      }
+    },
+    "config": {
+      "enableFor": "Ebeneneinstellungen aktivieren für:",
+      "enableForHelp": "Wählen Sie die Ebenentypen aus, für die die Ebeneneinstellungen verfügbar sein sollen.",
+      "rasterLayers": "Rasterebenen",
+      "pointcloudLayers": "Punktwolkenebenen"
+    }
+  }
+}
