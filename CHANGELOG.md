@@ -1,3 +1,7 @@
+# v1.0.2
+
+- Adds help URL to ConfigEditor
+
 # v1.0.0
 
 Layer Settings plugin
