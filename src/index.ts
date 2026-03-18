@@ -155,6 +155,10 @@ export default function plugin(
         {
           component: ConfigEditor,
           title: 'Layer Settings Config Editor',
+          infoUrlCallback: app?.getHelpUrlCallback(
+            '/components/plugins/layerSettingsToolConfig.html',
+            'app-configurator',
+          ),
         },
       ];
     },
