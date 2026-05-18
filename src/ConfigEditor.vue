@@ -51,8 +51,8 @@
     },
     setup(props) {
       const localConfig = ref<LayerSettingsConfig>({
-        ...props.getConfig(),
         ...getDefaultOptions(),
+        ...props.getConfig(),
       });
       const supportedTypes = Object.keys(
         getDefaultOptions(),
