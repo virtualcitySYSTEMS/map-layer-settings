@@ -1,3 +1,7 @@
+# v1.0.4
+
+- Added support for CesiumTilesetLayers' `screenSpaceError` setting
+
 # v1.0.3
 
 - Fixed a bug where default config would override user-config in the ConfigEditor

@@ -56,7 +56,7 @@
 <template>
   <v-sheet class="pa-0">
     <vcs-form-section heading="layerSettings.generalSettings">
-      <v-container class="pa-2">
+      <v-container class="pa-1">
         <v-row no-gutters>
           <v-col>
             <LabeledSlider

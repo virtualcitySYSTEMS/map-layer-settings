@@ -27,6 +27,7 @@
     return {
       raster: true,
       pointcloud: true,
+      cesiumTileset: true,
     };
   }
 

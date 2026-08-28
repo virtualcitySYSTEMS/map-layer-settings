@@ -34,8 +34,9 @@
     "config": {
       "enableFor": "Enable layer settings for:",
       "enableForHelp": "Select the layer types for which the layer settings should be available.",
-      "rasterLayers": "Raster layers",
-      "pointcloudLayers": "Pointcloud layers"
+      "cesiumTilesetLayers": "3D Object layers",
+      "pointcloudLayers": "Pointcloud layers",
+      "rasterLayers": "Raster layers"
     }
   }
 }

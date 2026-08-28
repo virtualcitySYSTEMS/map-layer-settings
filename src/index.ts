@@ -13,19 +13,26 @@ import {
   WMSGroupContentTreeItem,
 } from '@vcmap/ui';
 import type { Layer } from '@vcmap/core';
-import { LayerState, PointCloudLayer, RasterLayer } from '@vcmap/core';
+import {
+  CesiumTilesetLayer,
+  LayerState,
+  PointCloudLayer,
+  RasterLayer,
+} from '@vcmap/core';
 import type { Component } from 'vue';
-import RasterSettings from './RasterSettings.vue';
 import { mapVersion, name, version } from '../package.json';
 import de from './i18n/de.json';
 import en from './i18n/en.json';
 import ConfigEditor, { getDefaultOptions } from './ConfigEditor.vue';
+import CesiumTilesetSettings from './CesiumTilesetSettings.vue';
 import PointcloudSettings from './PointcloudSettings.vue';
+import RasterSettings from './RasterSettings.vue';
 
 type LayerSettingsState = Record<never, never>;
 export type LayerSettingsConfig = {
   raster?: boolean;
   pointcloud?: boolean;
+  cesiumTileset?: boolean;
 };
 type LayerSettingsPlugin = VcsPlugin<
   LayerSettingsConfig,
@@ -35,12 +42,24 @@ type LayerSettingsPlugin = VcsPlugin<
 };
 
 const actionName = 'layerSettings.settings';
+
+function isSupportedContentTreeItem(
+  item: ContentTreeItem,
+): item is LayerContentTreeItem | WMSGroupContentTreeItem {
+  return (
+    item instanceof LayerContentTreeItem ||
+    item instanceof WMSGroupContentTreeItem
+  );
+}
+function getWindowId(layerName: string): string {
+  return `layerSettings-${layerName}`;
+}
 function getWindowComponentOptions(
   layer: Layer,
   component: Component,
 ): WindowComponentOptions {
   return {
-    id: `layerSettings-${layer.name}`,
+    id: getWindowId(layer.name),
     component,
     slot: WindowSlot.DYNAMIC_LEFT,
     props: { layerName: layer.name },
@@ -57,10 +76,7 @@ function setupAction(
   config: LayerSettingsConfig,
   actionListeners: Record<string, () => void>,
 ): void {
-  if (
-    item instanceof LayerContentTreeItem ||
-    item instanceof WMSGroupContentTreeItem
-  ) {
+  if (isSupportedContentTreeItem(item)) {
     if (item.actions.some((a) => a.name === actionName)) {
       return;
     }
@@ -89,20 +105,35 @@ function setupAction(
       ({ action, destroy } = createAction(RasterSettings));
     } else if (config.pointcloud && layer instanceof PointCloudLayer) {
       ({ action, destroy } = createAction(PointcloudSettings));
+    } else if (config.cesiumTileset && layer instanceof CesiumTilesetLayer) {
+      ({ action, destroy } = createAction(CesiumTilesetSettings));
     } else {
       return;
     }
-    const layerListener = layer.stateChanged.addEventListener((state) => {
+    const layerStateListener = layer.stateChanged.addEventListener((state) => {
       action.disabled = state === LayerState.INACTIVE;
     });
 
-    actionListeners[item.name]?.();
-    actionListeners[item.name] = (): void => {
+    actionListeners[layerName]?.();
+    actionListeners[layerName] = (): void => {
       destroy();
-      layerListener();
+      layerStateListener();
     };
     item.addAction(action);
   }
+}
+
+function closeLayerWindow(
+  app: VcsUiApp,
+  layerName: string,
+  actionListeners?: Record<string, () => void>,
+): void {
+  const windowId = getWindowId(layerName);
+  if (app.windowManager.has(windowId)) {
+    app.windowManager.remove(windowId);
+  }
+  actionListeners?.[layerName]?.();
+  delete actionListeners?.[layerName];
 }
 
 export default function plugin(
@@ -134,6 +165,16 @@ export default function plugin(
         vcsUiApp.contentTree.added.addEventListener((contentTreeItem) => {
           setupAction(app, contentTreeItem, config, actionListeners);
         }),
+        vcsUiApp.contentTree.removed.addEventListener((contentTreeItem) => {
+          if (isSupportedContentTreeItem(contentTreeItem)) {
+            const { layerName } = contentTreeItem.toJSON();
+            closeLayerWindow(app, layerName, actionListeners);
+          }
+        }),
+        vcsUiApp.layers.removed.addEventListener((layer) => {
+          // do not pass actionListeners here, to keep action on the contentTreeItem that might just be hidden
+          closeLayerWindow(app, layer.name);
+        }),
       );
       return Promise.resolve();
     },
@@ -141,12 +182,13 @@ export default function plugin(
     toJSON(): LayerSettingsConfig {
       const serial: LayerSettingsConfig = {};
       const defaults = getDefaultOptions();
-      Object.keys(config).forEach((key) => {
-        const k = key as keyof LayerSettingsConfig;
-        if (config[k] !== defaults[k]) {
-          serial[k] = config[k];
-        }
-      });
+      (Object.keys(config) as Array<keyof LayerSettingsConfig>).forEach(
+        (key) => {
+          if (config[key] !== defaults[key]) {
+            serial[key] = config[key];
+          }
+        },
+      );
       return serial;
     },
     i18n: { en, de },

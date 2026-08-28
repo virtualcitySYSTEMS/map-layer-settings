@@ -34,8 +34,9 @@
     "config": {
       "enableFor": "Ebeneneinstellungen aktivieren für:",
       "enableForHelp": "Wählen Sie die Ebenentypen aus, für die die Ebeneneinstellungen verfügbar sein sollen.",
-      "rasterLayers": "Rasterebenen",
-      "pointcloudLayers": "Punktwolkenebenen"
+      "cesiumTilesetLayers": "3D-Objektebenen",
+      "pointcloudLayers": "Punktwolkenebenen",
+      "rasterLayers": "Rasterebenen"
     }
   }
 }
